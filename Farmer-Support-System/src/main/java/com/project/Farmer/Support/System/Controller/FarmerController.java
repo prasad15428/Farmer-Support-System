@@ -30,7 +30,7 @@ public class FarmerController {
     @PostMapping("/sendDetailsV1")
     public ResponseEntity<Farmer> sendDetails(@RequestBody Farmer farmer){
         logger.info("Found Farmer details 888562{}",farmer.toString());
-        Farmer farmer1=farmerService.saveFarmerDetails(farmer);
+        Farmer farmer1=farmerService.saveFarmerDetail(farmer);
         logger.info("Found Farmer details{}",farmer1);
         return new  ResponseEntity<>(farmer1,HttpStatus.CREATED);
     }

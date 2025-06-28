@@ -27,7 +27,7 @@ public class FarmerService implements  FarmerServiceInterface{
         this.fertilizerRepository=fertilizerRepository;
     }
 
-    public Farmer saveFarmerDetails(Farmer farmer){
+    public Farmer saveFarmerDetail(Farmer farmer){
         return farmerRepository.save(farmer);
     }
     public List<Farmer> saveMultipleFarmerDetails(List<Farmer> farmer){
