@@ -77,6 +77,12 @@ public class FarmerController {
         AppError farmerAppError=new AppError(HttpStatus.CONFLICT,"Provided "+" "+"Not Found in Data Base", LocalDateTime.now());
         return  new ResponseEntity<>(farmerAppError, farmerAppError.getStatus());
     }
+    @GetMapping("/getFarmerNames/{ch}")
+    public ResponseEntity<List<String>> listOfFarmerNames(@PathVariable char ch){
+        List<String> list=farmerService.getNamesOfFarmers(ch);
+        logger.info("printing all farmers names{}", list);
+        return ResponseEntity.ok(list);
+    }
     @ExceptionHandler(CropDetailsNotFoundInDataBase.class)
     public ResponseEntity<AppError> handleCropNotFound(CropDetailsNotFoundInDataBase ex){
         AppError appError=new AppError(HttpStatus.CONFLICT,ex.getMessage(),LocalDateTime.now());
@@ -87,5 +93,6 @@ public class FarmerController {
         AppError appError=new AppError(HttpStatus.CONFLICT,ex.getMessage(),LocalDateTime.now());
         return  new ResponseEntity<>(appError,appError.getStatus());
     }
+
 
 }

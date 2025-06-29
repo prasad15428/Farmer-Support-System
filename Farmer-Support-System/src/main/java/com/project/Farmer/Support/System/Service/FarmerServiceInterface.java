@@ -3,6 +3,7 @@ package com.project.Farmer.Support.System.Service;
 import com.project.Farmer.Support.System.Entity.CropType;
 import com.project.Farmer.Support.System.Entity.Fertilizers;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface FarmerServiceInterface {
@@ -13,4 +14,6 @@ public interface FarmerServiceInterface {
     public Fertilizers saveFertilizersDetails(Fertilizers fertilizers);
 
     public Optional<Fertilizers> getFertilizerDetails(Long id);
-}
+
+    public List<String> getNamesOfFarmers(char ch);
+    }
