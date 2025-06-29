@@ -1,20 +1,27 @@
 package com.project.Farmer.Support.System.Service;
 
+import com.project.Farmer.Support.System.Controller.FarmerController;
 import com.project.Farmer.Support.System.DTO.FarmerDTO;
 import com.project.Farmer.Support.System.Entity.CropType;
 import com.project.Farmer.Support.System.Entity.Fertilizers;
 import com.project.Farmer.Support.System.Repository.CropTypeRepository;
 import com.project.Farmer.Support.System.Repository.FarmerRepository;
 import com.project.Farmer.Support.System.Repository.FertilizerRepository;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.project.Farmer.Support.System.Entity.Farmer;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import org.slf4j.Logger;
 
 @Service
 public class FarmerService implements  FarmerServiceInterface{
+private static final Logger logger=LoggerFactory.getLogger(FarmerService.class);
+
 
     FarmerService(){}
     @Autowired
@@ -34,7 +41,9 @@ public class FarmerService implements  FarmerServiceInterface{
         return farmerRepository.saveAll(farmer);
     }
     public List<Farmer> getFarmers(){
-        return farmerRepository.findAll();
+        return  farmerRepository.findAll().stream()
+                .sorted(Comparator.comparing(Farmer::getName).reversed())
+                .toList();
     }
     public Optional<Farmer> getSingleFarmer(Long id){
                 return farmerRepository.findById(id);
@@ -59,5 +68,15 @@ public class FarmerService implements  FarmerServiceInterface{
     public Optional<Fertilizers> getFertilizerDetails(Long  id) {
        Optional<Fertilizers> fertilizers= fertilizerRepository.findById(id);
        return fertilizers;
+    }
+
+    @Override
+    public List<String> getNamesOfFarmers(char ch) {
+      List<String> farmerNames=farmerRepository.getFarmerNames();
+       List<String> list=farmerNames.stream()
+                .filter(name -> name.toLowerCase().startsWith(String.valueOf(ch).toLowerCase()))
+                .toList();
+        logger.info("Filtered farmer names starting with '{}': {}", ch, list);
+        return list;
     }
 }
