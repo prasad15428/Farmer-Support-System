@@ -30,6 +30,7 @@ private static final Logger logger=LoggerFactory.getLogger(FarmerService.class);
     @Autowired
     private CropTypeRepository cropTypeRepository;
     private FertilizerRepository fertilizerRepository;
+    @Autowired
     FarmerService(FertilizerRepository fertilizerRepository){
         this.fertilizerRepository=fertilizerRepository;
     }
@@ -78,5 +79,12 @@ private static final Logger logger=LoggerFactory.getLogger(FarmerService.class);
                 .toList();
         logger.info("Filtered farmer names starting with '{}': {}", ch, list);
         return list;
+    }
+    public Farmer findByName(String name){
+        return farmerRepository.findByName(name);
+    }
+    public List<Fertilizers> CalculateTotalAmount(Long farmerId){
+      List<Fertilizers> fertilizers=  fertilizerRepository.findByFarmer_FarmerId(farmerId);
+     return null ;
     }
 }

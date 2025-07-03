@@ -11,10 +11,12 @@ import java.util.List;
 
 @Repository
 public interface FarmerRepository extends JpaRepository<Farmer,Long> {
-
-    @Query("Select f.name from Farmer f")
+    //custom Queries
+    @Query("Select f.name from Farmer f ")
     List<String> getFarmerNames();
 
-   // @@Query("Select ")
+     Farmer findByName(String name);
+
+
 }
 

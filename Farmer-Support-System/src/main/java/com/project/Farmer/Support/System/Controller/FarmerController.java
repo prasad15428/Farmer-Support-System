@@ -83,6 +83,16 @@ public class FarmerController {
         logger.info("printing all farmers names{}", list);
         return ResponseEntity.ok(list);
     }
+    @GetMapping("/bySingleName/{name}")
+    public ResponseEntity<Farmer> findByName(@PathVariable String name){
+        Farmer f=farmerService.findByName(name);
+        return ResponseEntity.ok(f);
+    }
+    @GetMapping("/ByCropFarmerID/{id}")
+    public ResponseEntity<List<Fertilizers>> findByFKName(@PathVariable Long id){
+       List<Fertilizers> cropType=farmerService.CalculateTotalAmount(id);
+       return  ResponseEntity.ok(cropType);
+    }
     @ExceptionHandler(CropDetailsNotFoundInDataBase.class)
     public ResponseEntity<AppError> handleCropNotFound(CropDetailsNotFoundInDataBase ex){
         AppError appError=new AppError(HttpStatus.CONFLICT,ex.getMessage(),LocalDateTime.now());
