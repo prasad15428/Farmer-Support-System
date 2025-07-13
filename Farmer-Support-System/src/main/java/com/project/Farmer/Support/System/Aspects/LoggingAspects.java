@@ -18,7 +18,7 @@ public class LoggingAspects {
     public Object logExecutionDetails(ProceedingJoinPoint joinPoint)throws Throwable{
         String method=joinPoint.getSignature().toShortString();
         Object[]args=joinPoint.getArgs();
-        log.info("Method Started  {}| Args{}", method, Arrays.toString(args));
+        log.debug("Method Started  {}| Args{}", method, Arrays.toString(args));
         long start=System.currentTimeMillis();
 
         Object result =joinPoint.proceed();
